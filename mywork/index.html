@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>HTML 문제풀이 모음</title>
+
+
+<style>
+
+/* =====================================================
+   기본 설정
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+
+    font-family:
+        "Pretendard",
+        "Noto Sans KR",
+        Arial,
+        sans-serif;
+
+    /*
+        전체 바깥 배경
+        차콜과 잘 어울리는 그레이지
+    */
+
+    background: #cbc9c2;
+
+    color: #303638;
+}
+
+
+
+/* =====================================================
+   상단 헤더
+===================================================== */
+
+header {
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+
+    /*
+        메인 차콜 색상
+    */
+
+    background: #30383d;
+
+
+    /*
+        순백색 대신 따뜻한 아이보리
+    */
+
+    color: #e8e5dc;
+
+
+    border-bottom:
+        1px solid #4a5154;
+}
+
+
+
+/* =====================================================
+   사이트 제목
+===================================================== */
+
+.header-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+
+/*
+    제목 왼쪽 작은 장식
+*/
+
+.header-title .mark {
+
+    width: 7px;
+
+    height: 27px;
+
+    background: #9da99f;
+
+    border-radius: 5px;
+}
+
+
+
+/*
+    제목 글씨
+*/
+
+.header-title h1 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 600;
+
+    letter-spacing: -0.4px;
+
+    color: #e8e5dc;
+}
+
+
+
+/* =====================================================
+   상단 오른쪽 페이지 번호
+===================================================== */
+
+.header-page {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    /*
+        흰색보다 부드러운 세이지 그레이
+    */
+
+    color: #b8c0b9;
+
+    letter-spacing: 0.8px;
+}
+
+
+
+/* =====================================================
+   전체 화면
+===================================================== */
+
+.container {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        330px;
+
+    gap: 18px;
+
+    height:
+        calc(100vh - 68px);
+
+    padding: 18px;
+}
+
+
+
+/* =====================================================
+   왼쪽 메인 영역
+===================================================== */
+
+.main-area {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+
+    /*
+        순백색보다 조금 따뜻한 아이보리
+    */
+
+    background: #f1f0eb;
+
+
+    border:
+        1px solid #c4c2bb;
+
+
+    border-radius: 14px;
+
+
+    overflow: hidden;
+
+
+    /*
+        살짝 떠 있는 느낌
+    */
+
+    box-shadow:
+        0 5px 20px
+        rgba(45, 50, 52, 0.10);
+}
+
+
+
+/* =====================================================
+   실제 HTML 페이지 영역
+===================================================== */
+
+.main-screen {
+
+    flex: 1;
+
+    min-height: 0;
+
+    background: #ffffff;
+}
+
+
+
+/*
+    실제 페이지 iframe
+*/
+
+.main-screen iframe {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    display: block;
+}
+
+
+
+/* =====================================================
+   오른쪽 페이지 목록
+===================================================== */
+
+.sidebar {
+
+    min-width: 0;
+
+    height: 100%;
+
+    overflow-y: auto;
+
+    padding-right: 4px;
+}
+
+
+
+/* =====================================================
+   오른쪽 스크롤바
+===================================================== */
+
+.sidebar::-webkit-scrollbar {
+
+    width: 6px;
+}
+
+
+.sidebar::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+
+.sidebar::-webkit-scrollbar-thumb {
+
+    background: #aaa9a3;
+
+    border-radius: 10px;
+}
+
+
+
+/* =====================================================
+   페이지 카드
+===================================================== */
+
+.page-card {
+
+    margin-bottom: 17px;
+
+    cursor: pointer;
+
+
+    transition:
+        transform 0.18s ease,
+        opacity 0.18s ease;
+}
+
+
+
+/*
+    마우스를 올렸을 때
+*/
+
+.page-card:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+
+
+/* =====================================================
+   페이지 제목
+===================================================== */
+
+.page-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 8px;
+
+
+    color: #4b5352;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    letter-spacing: -0.2px;
+}
+
+
+
+/* =====================================================
+   페이지 번호
+===================================================== */
+
+.page-number {
+
+    width: 25px;
+
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    flex-shrink: 0;
+
+
+    border-radius: 7px;
+
+
+    /*
+        부드러운 세이지 그레이
+    */
+
+    background: #c0c5bd;
+
+
+    color: #3d4644;
+
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+
+/* =====================================================
+   페이지 썸네일
+===================================================== */
+
+.thumbnail {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    position: relative;
+
+
+    border:
+        1px solid #c6c5bf;
+
+
+    border-radius: 11px;
+
+
+    /*
+        아이보리 계열
+    */
+
+    background: #efeee9;
+
+
+    transition:
+        border 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+
+/*
+    실제 HTML 페이지 축소
+*/
+
+.thumbnail iframe {
+    position: absolute;
+
+  .thumbnail {
+    aspect-ratio: 16 / 9;
+}
+
+.thumbnail iframe {
+    width: 400%;
+    height: 225%;
+    transform: scale(0.25);
+    transform-origin: top left;
+}
+    border: none;
+
+    pointer-events: none;
+
+    transform: none;
+
+    display: block;
+}
+
+
+
+/* =====================================================
+   현재 선택된 페이지
+===================================================== */
+
+.page-card.active .page-title {
+
+    color: #293438;
+}
+
+
+
+/*
+    선택된 페이지 번호
+*/
+
+.page-card.active .page-number {
+
+    background: #4b5957;
+
+    color: #eeeae1;
+}
+
+
+
+/*
+    선택된 페이지 썸네일
+*/
+
+.page-card.active .thumbnail {
+
+    border:
+        2px solid #596764;
+
+
+    box-shadow:
+        0 6px 18px
+        rgba(48, 56, 61, 0.16);
+}
+
+
+
+/* =====================================================
+   모바일
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .container {
+
+        grid-template-columns: 1fr;
+
+        height: auto;
+
+        padding: 12px;
+    }
+
+
+    .main-area {
+
+        height: 65vh;
+    }
+
+
+    .sidebar {
+
+        height: auto;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 14px;
+    }
+
+}
+
+
+
+/* =====================================================
+   작은 모바일
+===================================================== */
+
+@media (max-width: 600px) {
+
+    header {
+
+        padding: 0 18px;
+    }
+
+
+    .header-page {
+
+        display: none;
+    }
+
+
+    .sidebar {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- =====================================================
+     상단 헤더
+===================================================== -->
+
+<header>
+
+
+    <div class="header-title">
+
+
+        <!-- 왼쪽 장식 -->
+
+        <div class="mark"></div>
+
+
+        <!-- 사이트 제목 -->
+
+        <h1>
+            HTML 문제풀이 모음
+        </h1>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         현재 페이지 번호
+    ================================================== -->
+
+    <div
+        class="header-page"
+        id="headerPage">
+
+        01 / 14
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     전체 화면
+===================================================== -->
+
+<div class="container">
+
+
+
+    <!-- =================================================
+         왼쪽 메인 화면
+    ================================================== -->
+
+    <main class="main-area">
+
+
+        <div class="main-screen">
+
+
+            <iframe
+
+                id="mainFrame"
+
+                src="01.html"
+
+                title="선택한 페이지">
+
+            </iframe>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         오른쪽 페이지 목록
+    ================================================== -->
+
+    <aside
+
+        class="sidebar"
+
+        id="sidebar">
+
+    </aside>
+
+
+</div>
+
+
+
+<script>
+
+
+
+/* =====================================================
+   HTML 페이지 목록
+===================================================== */
+
+const pages = [
+
+
+    {
+        title: "첫 번째 페이지",
+        file: "01.html"
+    },
+
+
+    {
+        title: "두 번째 페이지",
+        file: "02.html"
+    },
+
+
+    {
+        title: "세 번째 페이지",
+        file: "02-2.html"
+    },
+
+
+    {
+        title: "네 번째 페이지",
+        file: "03.html"
+    },
+
+
+    {
+        title: "다섯 번째 페이지",
+        file: "4-1.html"
+    },
+
+
+    {
+        title: "여섯 번째 페이지",
+        file: "4-2.html"
+    },
+
+
+    {
+        title: "일곱 번째 페이지",
+        file: "05.html"
+    },
+
+
+    {
+        title: "여덟 번째 페이지",
+        file: "07.html"
+    },
+
+
+    {
+        title: "아홉 번째 페이지",
+        file: "a.html"
+    },
+
+
+    {
+        title: "열 번째 페이지",
+        file: "lan.html"
+    },
+
+
+    {
+        title: "열하나 번째 페이지",
+        file: "applications.html"
+    },
+
+
+    {
+        title: "열셋 번째 페이지",
+        file: "da.html"
+    },
+
+
+    {
+        title: "열넷 번째 페이지",
+        file: "iframe1_6.html"
+    },
+
+
+    {
+        title: "열여덟 번째 페이지",
+        file: "lan.html"
+    }
+
+
+];
+
+
+
+/* =====================================================
+   필요한 요소 가져오기
+===================================================== */
+
+const sidebar =
+    document.getElementById(
+        "sidebar"
+    );
+
+
+const mainFrame =
+    document.getElementById(
+        "mainFrame"
+    );
+
+
+const headerPage =
+    document.getElementById(
+        "headerPage"
+    );
+
+
+
+/* =====================================================
+   오른쪽 페이지 목록 생성
+===================================================== */
+
+pages.forEach(
+    (page, index) => {
+
+
+        /*
+            카드 생성
+        */
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+
+        card.className =
+            "page-card";
+
+
+
+        /*
+            첫 번째 페이지
+            기본 선택
+        */
+
+        if (index === 0) {
+
+            card.classList.add(
+                "active"
+            );
+
+        }
+
+
+
+        /*
+            페이지 번호
+
+            1 → 01
+            2 → 02
+            3 → 03
+        */
+
+        const number =
+            String(
+                index + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+
+        /*
+            카드 내용
+        */
+
+        card.innerHTML = `
+
+
+            <!-- 페이지 제목 -->
+
+            <div class="page-title">
+
+
+                <!-- 페이지 번호 -->
+
+                <span class="page-number">
+
+                    ${number}
+
+                </span>
+
+
+                <!-- 페이지 이름 -->
+
+                <span>
+
+                    ${page.title}
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- 페이지 미리보기 -->
+
+            <div class="thumbnail">
+
+
+<iframe
+    src="${page.file}"
+    title="${page.title}"
+    loading="lazy"
+    tabindex="-1"
+    scrolling="no">
+</iframe>
+
+
+            </div>
+
+
+        `;
+
+
+
+        /*
+            페이지 클릭
+        */
+
+        card.addEventListener(
+            "click",
+            () => {
+
+
+                /*
+                    왼쪽 메인 화면 변경
+                */
+
+                mainFrame.src =
+                    page.file;
+
+
+
+                /*
+                    모든 카드의
+                    active 제거
+                */
+
+                document
+                    .querySelectorAll(
+                        ".page-card"
+                    )
+                    .forEach(
+                        item => {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+
+                /*
+                    현재 카드 활성화
+                */
+
+                card.classList.add(
+                    "active"
+                );
+
+
+
+                /*
+                    상단 페이지 번호 변경
+                */
+
+                headerPage.textContent =
+
+                    `${number} / ${
+                        String(
+                            pages.length
+                        ).padStart(
+                            2,
+                            "0"
+                        )
+                    }`;
+
+
+            }
+        );
+
+
+
+        /*
+            오른쪽 목록에 추가
+        */
+
+        sidebar.appendChild(
+            card
+        );
+
+
+    }
+);
+
+</script>
+
+
+
+</body>
+
+</html>
